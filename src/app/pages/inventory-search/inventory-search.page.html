@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="title-container">
+    <h2>Búsqueda</h2>
+  </div>
+
+  <!-- Aquí se puede colocar la imagen de la cámara (que en este caso es solo una ilustración) -->
+  <div class="qr-image-container">
+    <img src="/assets/img/qr-code-image.png" alt="Imagen QR" class="qr-image">
+  </div>
+
+  <!-- Contenedor para centrar el botón de escaneo -->
+  <div class="scan-button-container">
+    <!-- Botón para iniciar el escaneo -->
+    <ion-button expand="block" class="scan-button" (click)="startScan()">Iniciar Escaneo</ion-button>
+  </div>
+
+  <!-- Botón para detener el escaneo -->
+  <ion-button expand="block" color="danger" *ngIf="isScanning" class="stop-button" (click)="stopScan()">Detener Escaneo</ion-button>
+
+  <!-- Contenedor para mostrar el resultado escaneado -->
+  <div *ngIf="scannedResult" class="result-container">
+    <h3>Resultado Escaneado:</h3>
+    <p>{{ scannedResult }}</p>
+  </div>
+</ion-content>

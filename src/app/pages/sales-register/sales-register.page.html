@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="container">
+    <h2>Registrar Transacción</h2>
+    
+    <!-- Contenedor del formulario -->
+    <div class="form-container">
+      
+      <!-- Selección de acción con ion-radio-group -->
+      <ion-item>
+        <ion-label>Acción</ion-label>
+        <ion-radio-group [(ngModel)]="selectedAction">
+          <ion-radio value="compra">Compra</ion-radio>
+          <ion-radio value="venta">Venta</ion-radio>
+        </ion-radio-group>
+      </ion-item>
+
+      <!-- Código del producto -->
+      <ion-item>
+        <ion-label position="floating">Código del producto</ion-label>
+        <ion-input placeholder="Ingrese el código del producto" [(ngModel)]="productCode" (ionChange)="searchProduct()"></ion-input>
+      </ion-item>
+
+      <!-- Mostrar detalles del producto encontrado -->
+      <div *ngIf="product && product.name">
+        <p><strong>Producto encontrado:</strong> {{ product.name }}</p>
+        <p><strong>Cantidad en inventario:</strong> {{ product.quantity }}</p>
+        <p><strong>Precio unitario:</strong> {{ product.price | currency }}</p>
+      </div>
+
+      <!-- Cantidad -->
+      <ion-item>
+        <ion-label position="floating">Cantidad</ion-label>
+        <ion-input type="number" [(ngModel)]="quantity"></ion-input>
+      </ion-item>
+
+      <!-- Precio -->
+      <ion-item>
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input type="number" [(ngModel)]="price"></ion-input>
+      </ion-item>
+
+      <!-- Fecha -->
+      <ion-item>
+        <ion-label position="floating">Fecha (dd/mm/aaaa)</ion-label>
+        <ion-input type="text" placeholder="Ej: 11/12/2024" [(ngModel)]="date"></ion-input>
+      </ion-item>
+
+      <!-- Botón de registrar -->
+      <ion-button expand="block" color="primary" (click)="registerTransaction()">Registrar</ion-button>
+    </div>
+  </div>
+</ion-content>

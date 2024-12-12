@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Contenedor principal -->
+  <div class="product-container" *ngIf="product">
+    <!-- Imagen del producto -->
+    <div class="product-image">
+      <img [src]="product.imageUrl" alt="Imagen del producto" />
+    </div>
+
+    <!-- Detalles del producto -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ product.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Código del producto -->
+        <p><strong>Código:</strong> {{ product.code }}</p>
+
+        <!-- Cantidad en inventario -->
+        <p><strong>Cantidad en inventario:</strong> {{ product.quantity }}</p>
+
+        <!-- Descripción del producto -->
+        <p><strong>Descripción:</strong> {{ product.description }}</p>
+
+        <!-- Precio del producto -->
+        <p><strong>Precio:</strong> ${{ product.price }}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <!-- Si no hay producto, mostrar un mensaje -->
+  <div *ngIf="!product">
+    <p>Producto no encontrado.</p>
+  </div>
+</ion-content>

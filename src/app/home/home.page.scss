@@ -1,0 +1,56 @@
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar los botones */
+  gap: 15px;
+  padding: 20px;
+}
+
+.custom-button {
+  background-color: #007bff; /* Fondo azul */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 80%; /* Ajustar el ancho de los botones */
+  max-width: 300px; /* Limitar el tamaño máximo */
+}
+
+.custom-button:hover {
+  background-color: #0056b3; /* Color más oscuro al pasar el ratón */
+}
+
+ion-button {
+  --border-radius: 8px; /* Bordes redondeados */
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.qr-image {
+  width: 150px; /* Ajusta el tamaño de la imagen */
+  height: auto;
+}
+
+/* Estilos para el nombre del autor en la esquina inferior */
+.author {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  z-index: 10; /* Asegura que esté por encima de otros elementos */
+}

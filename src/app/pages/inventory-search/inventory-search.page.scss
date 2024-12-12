@@ -1,0 +1,66 @@
+/* Estilo para el contenedor del título */
+.title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Contenedor de la imagen QR */
+.qr-image-container {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.qr-image {
+  width: 80%; /* Ajusta el tamaño de la imagen */
+  max-width: 300px;
+  margin-top: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Contenedor para centrar el botón de escaneo */
+.scan-button-container {
+  display: flex;
+  justify-content: center; /* Centra el botón horizontalmente */
+  margin-bottom: 20px;
+}
+
+/* Botón de iniciar escaneo */
+.scan-button {
+  background-color: #3498db;
+  color: white;
+  width: auto; /* Ajusta el tamaño del botón */
+}
+
+/* Botón de detener escaneo */
+.stop-button {
+  background-color: #e74c3c;
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* Estilo para mostrar el resultado escaneado */
+.result-container {
+  text-align: center;
+  padding: 20px;
+  background-color: #f4f6f7;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.result-container p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
