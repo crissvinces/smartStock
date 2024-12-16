@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router'; // Importa Router
+import { RouterModule, Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
-import { ProductService } from 'src/app/pages/services/product-service'; // Importa el servicio
+import { ProductService } from 'src/app/pages/services/product-service';
 
 @Component({
   selector: 'app-inventory-search',
@@ -16,30 +16,36 @@ import { ProductService } from 'src/app/pages/services/product-service'; // Impo
 export class InventorySearchPage implements OnInit {
   scannedResult: string = '';
   isScanning: boolean = false;
-  product: any = null; // Almacena el producto escaneado
+  product: any = null;
 
-  constructor(private router: Router, private productService: ProductService) { } // Inyecta Router
+  constructor(private router: Router, private productService: ProductService) {}
 
   async startScan() {
     try {
-      await BarcodeScanner.checkPermission({ force: true });
-      BarcodeScanner.hideBackground();
-      this.isScanning = true;
+      // Solicitar permisos para la cámara
+      const permission = await BarcodeScanner.checkPermission({ force: true });
+      if (permission.granted) {
+        // Ocultar el fondo y comenzar el escaneo con cámara trasera por defecto
+        BarcodeScanner.hideBackground();
+        this.isScanning = true;
 
-      const result = await BarcodeScanner.startScan();
+        const result = await BarcodeScanner.startScan(); // Sin configuración de preferFrontCamera
 
-      this.isScanning = false;
+        this.isScanning = false;
 
-      if (result?.hasContent) {
-        this.scannedResult = result.content;
-        console.log('Producto escaneado:', this.scannedResult);
+        if (result?.hasContent) {
+          this.scannedResult = result.content;
+          console.log('Producto escaneado:', this.scannedResult);
 
-        this.product = this.productService.getProductByCode(this.scannedResult);
+          this.product = this.productService.getProductByCode(this.scannedResult);
 
-        // Redirige a la página de detalles del producto con el código escaneado
-        this.router.navigate(['/product-details', this.scannedResult]);
+          // Redirige a la página de detalles del producto
+          this.router.navigate(['/product-details', this.scannedResult]);
+        } else {
+          alert('No se detectó ningún código QR.');
+        }
       } else {
-        alert('No se detectó ningún código QR.');
+        alert('Permiso denegado para acceder a la cámara.');
       }
     } catch (error) {
       this.isScanning = false;
@@ -48,13 +54,13 @@ export class InventorySearchPage implements OnInit {
     }
   }
 
-  goBack() {
-    this.router.navigate(['/home']);
-  }
-
   stopScan() {
     BarcodeScanner.stopScan();
     this.isScanning = false;
+  }
+
+  goBack() {
+    this.router.navigate(['/home']);
   }
 
   ngOnInit() {}
