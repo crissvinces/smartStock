@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule, Router } from '@angular/router'; // Importa Router
-import { ProductService } from 'src/app/pages/services/product-service'; // Asegúrate de importar el servicio si lo necesitas
+import { RouterModule, Router } from '@angular/router';
+import { ProductService } from 'src/app/pages/services/product-service';
 
 @Component({
   selector: 'app-sales-register',
   templateUrl: 'sales-register.page.html',
   styleUrls: ['sales-register.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule], // Aquí añades los módulos que necesites
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule],
 })
 export class SalesRegisterPage implements OnInit {
   quantity: number = 0;
@@ -20,6 +20,8 @@ export class SalesRegisterPage implements OnInit {
   selectedAction: string = '';
   productCode: string = '';
   product: any = {};
+  maxDate: string = '';  // Fecha máxima
+  selectedLabel: string = '';  // Etiqueta seleccionada
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -27,7 +29,7 @@ export class SalesRegisterPage implements OnInit {
 
   // Método para regresar a la página anterior
   goBack() {
-    this.router.navigate(['../']);  // O usar un 'routerLink' en la plantilla
+    this.router.navigate(['../']);  
   }
 
   // Método para buscar el producto basado en el código
@@ -43,6 +45,7 @@ export class SalesRegisterPage implements OnInit {
     this.showOptions = !this.showOptions;
   }
 
+  // Registrar la transacción de compra o venta
   registerTransaction() {
     if (!this.product) {
       alert('Producto no encontrado');
@@ -59,7 +62,12 @@ export class SalesRegisterPage implements OnInit {
       return;
     }
 
-    const updatedProduct = this.productService.registerTransaction(this.productCode, this.selectedAction, this.quantity);
+    const updatedProduct = this.productService.registerTransaction(
+      this.productCode, 
+      this.selectedAction, 
+      this.quantity, 
+      this.price  // Pasar el precio también
+    );
 
     if (updatedProduct) {
       alert('Transacción registrada correctamente');

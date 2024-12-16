@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../pages/services/product-service'; // Asegúrate de importar el servicio si lo necesitas
+import { ProductService } from 'src/app/pages/services/product-service';  // Asegúrate de tener la ruta correcta del servicio
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './product-details.page.html',
   styleUrls: ['./product-details.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, RouterModule], // Aquí añades los módulos que necesites
+  imports: [CommonModule, FormsModule, IonicModule, RouterModule], // Importa los módulos necesarios
 })
 export class ProductDetailsPage implements OnInit {
   productCode: string = '';
@@ -56,13 +56,19 @@ export class ProductDetailsPage implements OnInit {
       return;
     }
 
-    const updatedProduct = this.productService.registerTransaction(this.productCode, this.selectedAction, this.quantity);
+    // Pasar el cuarto argumento (price) correctamente
+    const updatedProduct = this.productService.registerTransaction(
+      this.productCode, 
+      this.selectedAction, 
+      this.quantity, 
+      this.price // Asegúrate de pasar también el precio
+    );
 
     if (updatedProduct) {
       alert('Transacción registrada correctamente');
       this.product = updatedProduct; // Actualizar producto con las nuevas cantidades
     } else {
-      alert('Error al registrar la transacción');
+      alert('No hay suficiente inventario para realizar la venta');
     }
     
     this.clearForm();
@@ -74,5 +80,19 @@ export class ProductDetailsPage implements OnInit {
     this.date = '';
     this.selectedAction = '';
     this.showOptions = false;
+  }
+
+  // Definir el método getLabelColor
+  getLabelColor(label: string): string {
+    switch(label.toLowerCase()) {
+      case 'nuevo':
+        return 'green';
+      case 'rebajado':
+        return 'red';
+      case 'promocion':
+        return 'blue';
+      default:
+        return 'black'; // color por defecto
+    }
   }
 }

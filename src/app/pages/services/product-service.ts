@@ -4,44 +4,39 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ProductService {
-  // Datos de productos (puedes tener esto en una base de datos o almacenamiento más persistente)
-  private productData: { [key: string]: any } = {
-    '12345': { name: 'Esponja Bon Brill', description: 'Esponja', price: 100, code: '12345', quantity: 50, imageUrl: 'assets/esponja.jpg' },
-    '6789': { name: 'Servilletas Danny', description: 'Servilletas 100 Unidades', price: 3, code: '6789', quantity: 5, imageUrl: 'assets/Servilletas.jpg' },
-    '111222': { name: 'Fundas Camisetas MAXITRI', description: 'Fundas Camisetas 50 unidades', price: 5, code: '111222', quantity: 2, imageUrl: 'assets/Fundas.jpg' },
-  };
+  private products: any[] = [
+    { code: '12345', name: 'Esponja Bon Brill', quantity: 50, price: 100, label: '', maxDate: '', imageUrl: 'assets/esponja.jpg' },
+    { code: '6789', name: 'Servilletas Danny', quantity: 5, price: 3, label: '', maxDate: '', imageUrl: 'assets/Servilletas.jpg' },
+    { code: '111222', name: 'Fundas Camisetas MAXITRI', quantity: 2, price: 5, label: '', maxDate: '', imageUrl: 'assets/Fundas.jpg' },
+    // Puedes agregar más productos aquí
+  ];
 
   constructor() {}
 
   // Obtener un producto por su código
   getProductByCode(code: string) {
-    return this.productData[code] || null;
+    return this.products.find(product => product.code === code);
   }
 
-  // Actualizar la cantidad de un producto
-  updateProductQuantity(code: string, quantity: number) {
-    const product = this.productData[code];
-    if (product) {
-      product.quantity = quantity;
-    }
-  }
+  // Registrar una transacción (compra o venta)
+  registerTransaction(productCode: string, action: string, quantity: number, price: number) {
+    const product = this.getProductByCode(productCode);
 
-  // Obtener todos los productos (para mostrar lista, por ejemplo)
-  getAllProducts() {
-    return this.productData;
-  }
-
-  // Registrar una transacción (compra o venta) y actualizar inventario
-  registerTransaction(code: string, action: string, quantity: number) {
-    const product = this.productData[code];
     if (product) {
       if (action === 'compra') {
-        product.quantity += quantity;
+        product.quantity += quantity;  // Aumentar la cantidad en inventario
       } else if (action === 'venta') {
-        product.quantity -= quantity;
+        if (product.quantity >= quantity) {
+          product.quantity -= quantity;  // Reducir la cantidad en inventario
+        } else {
+          alert('No hay suficiente cantidad en inventario para la venta');
+          return null;
+        }
       }
-      return product;
+      product.price = price;  // Actualizar el precio unitario
+      return product;  // Retornar el producto actualizado
     }
-    return null;
+
+    return null;  // Si no se encuentra el producto
   }
 }

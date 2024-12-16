@@ -10,10 +10,7 @@
   <div class="container">
     <h2>Registrar Transacción</h2>
     
-    <!-- Contenedor del formulario -->
     <div class="form-container">
-      
-      <!-- Selección de acción con ion-radio-group -->
       <ion-item>
         <ion-label>Acción</ion-label>
         <ion-radio-group [(ngModel)]="selectedAction">
@@ -22,38 +19,41 @@
         </ion-radio-group>
       </ion-item>
 
-      <!-- Código del producto -->
       <ion-item>
         <ion-label position="floating">Código del producto</ion-label>
         <ion-input placeholder="Ingrese el código del producto" [(ngModel)]="productCode" (ionChange)="searchProduct()"></ion-input>
       </ion-item>
 
-      <!-- Mostrar detalles del producto encontrado -->
       <div *ngIf="product && product.name">
         <p><strong>Producto encontrado:</strong> {{ product.name }}</p>
         <p><strong>Cantidad en inventario:</strong> {{ product.quantity }}</p>
         <p><strong>Precio unitario:</strong> {{ product.price | currency }}</p>
       </div>
 
-      <!-- Cantidad -->
       <ion-item>
         <ion-label position="floating">Cantidad</ion-label>
         <ion-input type="number" [(ngModel)]="quantity"></ion-input>
       </ion-item>
 
-      <!-- Precio -->
       <ion-item>
         <ion-label position="floating">Precio</ion-label>
         <ion-input type="number" [(ngModel)]="price"></ion-input>
       </ion-item>
 
-      <!-- Fecha -->
       <ion-item>
-        <ion-label position="floating">Fecha (dd/mm/aaaa)</ion-label>
-        <ion-input type="text" placeholder="Ej: 11/12/2024" [(ngModel)]="date"></ion-input>
+        <ion-label position="floating">Fecha máxima</ion-label>
+        <ion-input type="text" placeholder="Fecha máxima" [(ngModel)]="maxDate"></ion-input>
       </ion-item>
 
-      <!-- Botón de registrar -->
+      <ion-item>
+        <ion-label>Etiqueta</ion-label>
+        <ion-select [(ngModel)]="selectedLabel">
+          <ion-select-option value="verde">Verde</ion-select-option>
+          <ion-select-option value="amarillo">Amarillo</ion-select-option>
+          <ion-select-option value="rojo">Rojo</ion-select-option>
+        </ion-select>
+      </ion-item>
+
       <ion-button expand="block" color="primary" (click)="registerTransaction()">Registrar</ion-button>
     </div>
   </div>

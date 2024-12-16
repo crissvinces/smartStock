@@ -1,38 +1,62 @@
 .product-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .product-image {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .product-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  ion-card {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 10px;
-  }
-  
-  ion-card-title {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  ion-card-content p {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.product-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.product-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra el contenido verticalmente */
+}
+
+ion-card-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto que no cabe en una línea */
+  text-overflow: ellipsis; /* Muestra "..." si el texto se corta */
+}
+
+ion-card-subtitle {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+ion-card-content p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+ion-button {
+  margin-top: 20px;
+}
+
+ion-item {
+  margin-bottom: 10px;
+}
+
+ion-label {
+  font-weight: bold;
+}

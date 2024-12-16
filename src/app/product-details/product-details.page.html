@@ -1,42 +1,48 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="goBack()">Volver</ion-button>
+      <ion-back-button defaultHref="/inventory-search"></ion-back-button>
     </ion-buttons>
+    <ion-title>Detalles del Producto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- Contenedor principal -->
-  <div class="product-container" *ngIf="product">
-    <!-- Imagen del producto -->
-    <div class="product-image">
-      <img [src]="product.imageUrl" alt="Imagen del producto" />
-    </div>
-
-    <!-- Detalles del producto -->
+  <div *ngIf="product">
     <ion-card>
+      <img [src]="product.imageUrl" alt="{{product.name}}" />
       <ion-card-header>
         <ion-card-title>{{ product.name }}</ion-card-title>
+        <ion-card-subtitle>{{ product.description }}</ion-card-subtitle>
       </ion-card-header>
-
       <ion-card-content>
-        <!-- Código del producto -->
-        <p><strong>Código:</strong> {{ product.code }}</p>
-
-        <!-- Cantidad en inventario -->
-        <p><strong>Cantidad en inventario:</strong> {{ product.quantity }}</p>
-
-        <!-- Descripción del producto -->
-        <p><strong>Descripción:</strong> {{ product.description }}</p>
-
-        <!-- Precio del producto -->
-        <p><strong>Precio:</strong> ${{ product.price }}</p>
+        <p>Código: {{ product.code }}</p>
+        <p>Precio: ${{ product.price }}</p>
+        <p>Cantidad: {{ product.quantity }}</p>
+        <p>Fecha de Expiración: {{ product.expirationDate }}</p>
+        <p>Etiqueta: <span [ngStyle]="{'color': getLabelColor(product.label)}">{{ product.label | uppercase }}</span></p>
+        
+        <ion-button expand="full" (click)="toggleOptions()">Registrar Transacción</ion-button>
+        
+        <div *ngIf="showOptions">
+          <ion-item>
+            <ion-label>Acción</ion-label>
+            <ion-select [(ngModel)]="selectedAction">
+              <ion-select-option value="compra">Compra</ion-select-option>
+              <ion-select-option value="venta">Venta</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Cantidad</ion-label>
+            <ion-input [(ngModel)]="quantity" type="number"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Precio</ion-label>
+            <ion-input [(ngModel)]="price" type="number"></ion-input>
+          </ion-item>
+          <ion-button expand="full" (click)="registerTransaction()">Registrar</ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
-  </div>
-  <!-- Si no hay producto, mostrar un mensaje -->
-  <div *ngIf="!product">
-    <p>Producto no encontrado.</p>
   </div>
 </ion-content>
